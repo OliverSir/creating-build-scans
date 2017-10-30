@@ -44,6 +44,7 @@
 <li><a href="#what_you_ll_create">What you&#8217;ll create</a></li>
 <li><a href="#what_you_ll_need">What you&#8217;ll need</a></li>
 <li><a href="#select_a_sample_project">Select a sample project</a></li>
+<li><a href="#auto_apply_the_build_scan_plugin">Auto-apply the build-scan plugin</a></li>
 <li><a href="#apply_the_build_scan_plugin">Apply the build-scan plugin</a></li>
 <li><a href="#add_the_license_agreement">Add the license agreement</a></li>
 <li><a href="#run_the_build_scan">Run the build scan</a></li>
@@ -98,6 +99,31 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Gradle makes available a simple Java project that you can use to demonstrate build scan capabilities. If you wish to use it, clone or download the repository located at <a href="https://github.com/gradle/gradle-build-scan-quickstart" class="bare">https://github.com/gradle/gradle-build-scan-quickstart</a>. If you prefer to use your own build, you can skip this step.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="auto_apply_the_build_scan_plugin"><a class="anchor" href="#auto_apply_the_build_scan_plugin"></a>Auto-apply the build-scan plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Starting with Gradle 4.3 you can generate a build scan without any additional configuration in your build script. When using the command line option <code>--scan</code> to publish a build scan, the required build scan plugin is applied automatically. Before the end of the build, you are asked to accept the license agreement on the command line. The following console output demonstrates the behavior.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ./gradlew build --scan
+
+BUILD SUCCESSFUL in 6s
+
+Do you accept the Gradle Cloud Services license agreement (https://gradle.com/terms-of-service)? [yes, no]
+yes
+Gradle Cloud Services license agreement accepted.
+
+Publishing build scan...
+https://gradle.com/s/czajmbyg73t62</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This mechanism makes it very easy to generate ad-hoc, one-off build scans without having to configure the build scan plugin in your build. If you need finer grained configuration, you can configure the build-scan plugin in a build or init script as described in the following sections.</p>
 </div>
 </div>
 </div>
@@ -291,7 +317,7 @@ rootProject {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-27 15:34:16 +00:00
+Last updated 2017-10-30 17:25:06 +00:00
 </div>
 </div>
 </body>
