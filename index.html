@@ -44,11 +44,11 @@
 <li><a href="#what_you_ll_create">What you&#8217;ll create</a></li>
 <li><a href="#what_you_ll_need">What you&#8217;ll need</a></li>
 <li><a href="#select_a_sample_project">Select a sample project</a></li>
-<li><a href="#auto_apply_the_build_scan_plugin">Auto-apply the build-scan plugin</a></li>
-<li><a href="#apply_the_build_scan_plugin">Apply the build-scan plugin</a></li>
+<li><a href="#auto_apply_the_build_scan_plugin">Auto-apply the build scan plugin</a></li>
+<li><a href="#enable_build_scans_on_all_builds_of_your_project">Enable build scans on all builds of your project</a></li>
 <li><a href="#add_the_license_agreement">Add the license agreement</a></li>
-<li><a href="#run_the_build_scan">Run the build scan</a></li>
-<li><a href="#access_the_scan_online">Access the scan online</a></li>
+<li><a href="#publish_a_build_scan">Publish a build scan</a></li>
+<li><a href="#access_the_build_scan_online">Access the build scan online</a></li>
 <li><a href="#enable_build_scans_for_all_builds_optional">Enable build scans for all builds (optional)</a></li>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#next_steps">Next Steps</a></li>
@@ -61,7 +61,7 @@
 <h2 id="introduction"><a class="anchor" href="#introduction"></a>Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A build scan is a shareable and centralized record of a build that provides insights into what happened and why. By applying the build scan plugin to your project, you can create a build scan in the Gradle Cloud for free.</p>
+<p>A build scan is a shareable and centralized record of a build that provides insights into what happened and why. By applying the build scan plugin to your project, you can publish build scans to <a href="https://scans.gradle.com" class="bare">https://scans.gradle.com</a> for free.</p>
 </div>
 </div>
 </div>
@@ -69,7 +69,7 @@
 <h2 id="what_you_ll_create"><a class="anchor" href="#what_you_ll_create"></a>What you&#8217;ll create</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide shows you how to modify a build script to enable build scans. Optionally, you will also modify an <code>init</code> script to enable build scans for all of your applications.</p>
+<p>This guide shows you how to publish build scans ad-hoc without any build script modifications. You will also learn how to modify a build script to enable build scans for all builds of a given project. Optionally, you will also modify an init script to enable build scans for all of your projects.</p>
 </div>
 </div>
 </div>
@@ -79,7 +79,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Either your own sample project, or you can use the sample available from Gradle</p>
+<p>Either your own sample project, or you can use the sample project available from Gradle</p>
 </li>
 <li>
 <p>Access to the Internet</p>
@@ -98,15 +98,15 @@
 <h2 id="select_a_sample_project"><a class="anchor" href="#select_a_sample_project"></a>Select a sample project</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Gradle makes available a simple Java project that you can use to demonstrate build scan capabilities. If you wish to use it, clone or download the repository located at <a href="https://github.com/gradle/gradle-build-scan-quickstart" class="bare">https://github.com/gradle/gradle-build-scan-quickstart</a>. If you prefer to use your own build, you can skip this step.</p>
+<p>Gradle makes available a simple Java project that you can use to demonstrate build scan capabilities. If you wish to use it, clone or download the repository located at <a href="https://github.com/gradle/gradle-build-scan-quickstart" class="bare">https://github.com/gradle/gradle-build-scan-quickstart</a>. If you prefer to use your own project, you can skip this step.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="auto_apply_the_build_scan_plugin"><a class="anchor" href="#auto_apply_the_build_scan_plugin"></a>Auto-apply the build-scan plugin</h2>
+<h2 id="auto_apply_the_build_scan_plugin"><a class="anchor" href="#auto_apply_the_build_scan_plugin"></a>Auto-apply the build scan plugin</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Starting with Gradle 4.3 you can generate a build scan without any additional configuration in your build script. When using the command line option <code>--scan</code> to publish a build scan, the required build scan plugin is applied automatically. Before the end of the build, you are asked to accept the license agreement on the command line. The following console output demonstrates the behavior.</p>
+<p>Starting with Gradle 4.3, you can enable build scans without any additional configuration in your build script. When using the command line option <code>--scan</code> to publish a build scan, the required build scan plugin is applied automatically. Before the end of the build, you are asked to accept the license agreement on the command line. The following console output demonstrates the behavior.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -123,12 +123,12 @@ https://gradle.com/s/czajmbyg73t62</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This mechanism makes it very easy to generate ad-hoc, one-off build scans without having to configure the build scan plugin in your build. If you need finer grained configuration, you can configure the build-scan plugin in a build or init script as described in the following sections.</p>
+<p>This mechanism makes it very easy to generate ad-hoc, one-off build scans without having to configure the build scan plugin in your build. If you need finer grained configuration, you can configure the build scan plugin in a build or init script as described in the following sections.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="apply_the_build_scan_plugin"><a class="anchor" href="#apply_the_build_scan_plugin"></a>Apply the build-scan plugin</h2>
+<h2 id="enable_build_scans_on_all_builds_of_your_project"><a class="anchor" href="#enable_build_scans_on_all_builds_of_your_project"></a>Enable build scans on all builds of your project</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Add a <code>plugins</code> block to the <code>build.gradle</code> file with the following contents:</p>
@@ -144,15 +144,12 @@ https://gradle.com/s/czajmbyg73t62</pre>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Use latest version of plugin which can be found from the <a href="https://plugins.gradle.org/plugin/com.gradle.build-scan">Gradle Plugin Portal</a>.</td>
+<td>Use latest plugin version which can be found on the <a href="https://plugins.gradle.org/plugin/com.gradle.build-scan">Gradle Plugin Portal</a>.</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>If you already have a <code>plugins</code> block, always put the build-scan plugin first. Adding it below any existing plugins will still work, but will miss useful information.</p>
-</div>
-<div class="paragraph">
-<p>Using the <code>plugins</code> block in this way will not only download the plugin, it will apply it as well.</p>
+<p>If you already have a <code>plugins</code> block, always put the build scan plugin first. Adding it below any existing plugins will still work, but will miss useful information.</p>
 </div>
 </div>
 </div>
@@ -160,7 +157,7 @@ https://gradle.com/s/czajmbyg73t62</pre>
 <h2 id="add_the_license_agreement"><a class="anchor" href="#add_the_license_agreement"></a>Add the license agreement</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to use the build-scan plugin, you need to agree to the terms of service. This is an automated process that you can enable by adding the following section to your build file:</p>
+<p>In order to use the build scan plugin, you need to agree to the terms of service. This is an automated process that you can enable by adding the following section to your build file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -176,10 +173,10 @@ https://gradle.com/s/czajmbyg73t62</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="run_the_build_scan"><a class="anchor" href="#run_the_build_scan"></a>Run the build scan</h2>
+<h2 id="publish_a_build_scan"><a class="anchor" href="#publish_a_build_scan"></a>Publish a build scan</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The scan is enabled using a command-line flag called <code>--scan</code>.</p>
+<p>A build scan is published using a command-line flag called <code>--scan</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -209,7 +206,7 @@ https://gradle.com/s/47i5oe7dhgz2c</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="access_the_scan_online"><a class="anchor" href="#access_the_scan_online"></a>Access the scan online</h2>
+<h2 id="access_the_build_scan_online"><a class="anchor" href="#access_the_build_scan_online"></a>Access the build scan online</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The first time you follow the link, you will be asked to provide your email address so that a separate link can be sent to you. You will also have an opportunity to check a box to allow Gradle to remember you, so you won&#8217;t have to go through the email process in the future.</p>
@@ -280,7 +277,7 @@ rootProject {
 <div class="ulist">
 <ul>
 <li>
-<p>Add the build-scan plugin to your build</p>
+<p>Add the build scan plugin to your build</p>
 </li>
 <li>
 <p>Add a <code>buildScan</code> block to agree to the terms of service</p>
@@ -317,7 +314,7 @@ rootProject {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-30 17:25:06 +00:00
+Last updated 2017-10-31 14:02:59 +00:00
 </div>
 </div>
 </body>
