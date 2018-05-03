@@ -210,8 +210,8 @@ This can be done ad-hoc via the command line when publishing, but can also be sp
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">buildScan {
-    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
-    licenseAgree = 'yes'
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
 }</code></pre>
 </div>
 </div>
@@ -279,7 +279,7 @@ https://gradle.com/s/47i5oe7dhgz2c</pre>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">initscript {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2' }
+        gradlePluginPortal()
     }
 
     dependencies {
@@ -291,8 +291,8 @@ rootProject {
     apply plugin: com.gradle.scan.plugin.BuildScanPlugin
 
     buildScan {
-        licenseAgreementUrl = 'https://gradle.com/terms-of-service'
-        licenseAgree = 'yes'
+        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+        termsOfServiceAgree = 'yes'
     }
 }</code></pre>
 </div>
