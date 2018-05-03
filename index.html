@@ -178,12 +178,21 @@ https://gradle.com/s/czajmbyg73t62</pre>
 <h2 id="enable_build_scans_on_all_builds_of_your_project"><a class="anchor" href="#enable_build_scans_on_all_builds_of_your_project"></a><a class="link" href="#enable_build_scans_on_all_builds_of_your_project">Enable build scans on all builds of your project</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Add a <code>plugins</code> block to the <code>build.gradle</code> file with the following contents:</p>
+<p>Add a <code>plugins</code> block to the root project build script file with the following contents:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">plugins {
     id 'com.gradle.build-scan' version '1.13.1' <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle.kts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">plugins {
+    id("com.gradle.build-scan") version "1.13.1" <i class="conum" data-value="1"></i><b>(1)</b>
 }</code></pre>
 </div>
 </div>
@@ -207,11 +216,21 @@ https://gradle.com/s/czajmbyg73t62</pre>
 <p>In order to publish build scans to <a href="https://scans.gradle.com" class="bare">https://scans.gradle.com</a>, you need to accept the license agreement.
 This can be done ad-hoc via the command line when publishing, but can also be specified in your Gradle build file, by adding the following section:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">buildScan {
     termsOfServiceUrl = 'https://gradle.com/terms-of-service'
     termsOfServiceAgree = 'yes'
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle.kts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">buildScan {
+    setTermsOfServiceUrl("https://gradle.com/terms-of-service")
+    setTermsOfServiceAgree("yes")
 }</code></pre>
 </div>
 </div>
@@ -273,9 +292,10 @@ https://gradle.com/s/47i5oe7dhgz2c</pre>
 <h2 id="enable_build_scans_for_all_builds_optional"><a class="anchor" href="#enable_build_scans_for_all_builds_optional"></a><a class="link" href="#enable_build_scans_for_all_builds_optional">Enable build scans for all builds (optional)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can avoid having to add the plugin and license agreement to every build by using a Gradle init script. Create a file called <code>buildScan.gradle</code> in the directory <code>~/.gradle/init.d</code> (where the tilde represents your home directory) with the following contents:</p>
+<p>You can avoid having to add the plugin and license agreement to every build by using a Gradle init script. Create a file in the directory <code>~/.gradle/init.d</code> (where the tilde represents your home directory) with the following contents:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
+<div class="title">buildScan.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">initscript {
     repositories {
@@ -293,6 +313,29 @@ rootProject {
     buildScan {
         termsOfServiceUrl = 'https://gradle.com/terms-of-service'
         termsOfServiceAgree = 'yes'
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title">buildScan.init.gradle.kts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">initscript {
+    repositories {
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath("com.gradle:build-scan-plugin:1.13.1")
+    }
+}
+
+rootProject {
+    apply&lt;com.gradle.scan.plugin.BuildScanPlugin&gt;()
+
+    configure&lt;com.gradle.scan.plugin.BuildScanExtension&gt; {
+        setTermsOfServiceUrl("https://gradle.com/terms-of-service")
+        setTermsOfServiceAgree("yes")
     }
 }</code></pre>
 </div>
