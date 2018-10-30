@@ -261,7 +261,11 @@ https://gradle.com/s/czajmbyg73t62</pre>
 <div class="paragraph">
 <p>Add a <code>plugins</code> block to the root project build script file with the following contents:</p>
 </div>
-<div class="listingblock multi-language-sample">
+<div class="exampleblock">
+<div class="content">
+<div class="exampleblock testable-sample multi-language-sample">
+<div class="content">
+<div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">plugins {
@@ -269,12 +273,20 @@ https://gradle.com/s/czajmbyg73t62</pre>
 }</code></pre>
 </div>
 </div>
-<div class="listingblock multi-language-sample">
+</div>
+</div>
+<div class="exampleblock testable-sample multi-language-sample">
+<div class="content">
+<div class="listingblock">
 <div class="title">build.gradle.kts</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">plugins {
     id("com.gradle.build-scan") version "1.16" <i class="conum" data-value="1"></i><b>(1)</b>
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="colist arabic">
@@ -297,7 +309,11 @@ https://gradle.com/s/czajmbyg73t62</pre>
 <p>In order to publish build scans to <a href="https://scans.gradle.com" class="bare">https://scans.gradle.com</a>, you need to accept the license agreement.
 This can be done ad-hoc via the command line when publishing, but can also be specified in your Gradle build file, by adding the following section:</p>
 </div>
-<div class="listingblock multi-language-sample">
+<div class="exampleblock">
+<div class="content">
+<div class="exampleblock testable-sample multi-language-sample">
+<div class="content">
+<div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">buildScan {
@@ -306,13 +322,21 @@ This can be done ad-hoc via the command line when publishing, but can also be sp
 }</code></pre>
 </div>
 </div>
-<div class="listingblock multi-language-sample">
+</div>
+</div>
+<div class="exampleblock testable-sample multi-language-sample">
+<div class="content">
+<div class="listingblock">
 <div class="title">build.gradle.kts</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">buildScan {
     setTermsOfServiceUrl("https://gradle.com/terms-of-service")
     setTermsOfServiceAgree("yes")
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -334,10 +358,10 @@ Other properties are available. See the <a href="https://docs.gradle.com/build-s
 <div class="content">
 <pre>$ ./gradlew build --scan
 
-BUILD SUCCESSFUL in 5s
+BUILD SUCCESSFUL in 0s
 
 Publishing build scan...
-https://gradle.com/s/47i5oe7dhgz2c</pre>
+https://gradle.com/s/uniqueid</pre>
 </div>
 </div>
 </div>
@@ -375,7 +399,11 @@ https://gradle.com/s/47i5oe7dhgz2c</pre>
 <div class="paragraph">
 <p>You can avoid having to add the plugin and license agreement to every build by using a Gradle init script. Create a file in the directory <code>~/.gradle/init.d</code> (where the tilde represents your home directory) with the following contents:</p>
 </div>
-<div class="listingblock multi-language-sample">
+<div class="exampleblock">
+<div class="content">
+<div class="exampleblock testable-sample multi-language-sample">
+<div class="content">
+<div class="listingblock">
 <div class="title">buildScan.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">initscript {
@@ -384,7 +412,7 @@ https://gradle.com/s/47i5oe7dhgz2c</pre>
     }
 
     dependencies {
-        classpath 'com.gradle:build-scan-plugin:1.16'
+        classpath 'com.gradle:build-scan-plugin:@scanPluginVersion@'
     }
 }
 
@@ -398,7 +426,11 @@ rootProject {
 }</code></pre>
 </div>
 </div>
-<div class="listingblock multi-language-sample">
+</div>
+</div>
+<div class="exampleblock testable-sample multi-language-sample">
+<div class="content">
+<div class="listingblock">
 <div class="title">buildScan.init.gradle.kts</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">initscript {
@@ -407,7 +439,7 @@ rootProject {
     }
 
     dependencies {
-        classpath("com.gradle:build-scan-plugin:1.16")
+        classpath("com.gradle:build-scan-plugin:@scanPluginVersion@")
     }
 }
 
@@ -419,6 +451,10 @@ rootProject {
         setTermsOfServiceAgree("yes")
     }
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
